@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./common/common.js" ></script>
+    <script> 
+
+    requestUrl = `${backEndDomain}/boards`
+    
+
+    //웹브라우저에 이 페이지가 로드완료되면  다음 코드 실행   
+    window.onload = function () {   // http://localhost:3000/boards/ 
+        
+        function init() {
+        //get method
+        fetch(requestUrl)                  
+            .then(response => response.json())  // json response => 객체     
+            .then(json => {                            
+                let output = '';
+                json.forEach(boards => {
+                    output += `
+                       <ul>
+                        <li>게시물 번호: ${boards.board_no} </li>
+                        <li>회원 아이디: ${boards.mem_id} </li>
+                        <li>제목: ${boards.title}</li> 
+                        <li>본문: ${boards.text} </li>
+                        <li>조회수: ${boards.count} </li>
+                        <li>등록일시: ${boards.reg_dtm} </li>
+                        <li>수정일시: ${boards.mod_dtm} </li>
+
+                        </ul>
+                      <hr>    `;
+                });
+                document.querySelector('#result').innerHTML = output;
+                }).catch(error => console.log(error)); 
+        } ;
+        init();
+         
+}  
+</script>
+</head>
+<body> 
+     
+    <div id="result"></div>
+    
+</body>
+</html>

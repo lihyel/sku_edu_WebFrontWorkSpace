@@ -1,0 +1,1 @@
+const backEndDomain = "http://localhost:3000";

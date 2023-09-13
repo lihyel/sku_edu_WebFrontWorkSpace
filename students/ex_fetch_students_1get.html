@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./common/common.js" ></script>
+    <script> 
+
+    requestUrl = `${backEndDomain}/students`
+    
+
+    //웹브라우저에 이 페이지가 로드완료되면  다음 코드 실행   
+    window.onload = function () { 
+        
+        function init() {
+        //get method
+        fetch(requestUrl)                  
+            .then(response => response.json())  // json response => 객체     
+            .then(json => {                            
+                let output = '';
+                json.forEach(student => {
+                    output += `
+                       <ul>
+                        <li>학생번호: ${student.id} </li>
+                        <li>학생이름 : ${student.name} </li>
+                        <li>학년 : ${student.grade}</li> 
+                        </ul>
+                      <hr>    `;
+                });
+                document.querySelector('#result').innerHTML = output;
+                }).catch(error => console.log(error)); 
+        } ;
+        init();
+         
+}  
+</script>
+</head>
+<body> 
+     
+    <div id="result"></div>
+    
+</body>
+</html>
